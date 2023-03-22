@@ -15,15 +15,12 @@ WORKDIR /app
 # Copy the application code and the requirements file to the container
 COPY . /app
 
-# Copy NLTK package to the image
-COPY nltk_data /nltk_data
+# Install the dependencies and download NLTK data
+RUN pip install --no-cache-dir -r requirements.txt && \
+    python -c "import nltk; nltk.download('all', download_dir='/nltk_data')"
 
 # Set NLTK data path environment variable
 ENV NLTK_DATA=/nltk_data
-
-# Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
 
 # Expose the Flask port
 EXPOSE 5000
