@@ -1,0 +1,25 @@
+{% extends "base/base.html" %} 
+
+{% block title %} Home Page {% endblock %} 
+
+{% block content %} 
+    <div class="container p-4 d-flex justify-content-center" style="height: 80vh;">
+        <form class="form-inline my-2 my-lg-0" id="form" method="POST" onsubmit="showSpinner()">
+            <input class="form-control mr-sm-2"  name="link" type="search" placeholder="{{placeholder}}" aria-label="Link">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Start Analyzer</button>
+        </form>
+
+        <div id="spinner" class="spinner-border text-success p-1 m-4" style="display: none;"> </div>
+        <div id="loading-text" style="display: none;">
+            <h1>This can take few minutes</h1>
+            <h5>Do not refresh or resubmit the form</h5>
+        </div>
+    </div>
+    <script>
+        function showSpinner() {
+            document.getElementById("form").style.display = "none";
+            document.getElementById("loading-text").style.display = "block";
+            document.getElementById("spinner").style.display = "block";
+        }
+    </script>
+{% endblock %}
