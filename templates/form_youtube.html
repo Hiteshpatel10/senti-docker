@@ -1,0 +1,116 @@
+{% extends "base/base.html" %} {% block title %} Home Page {% endblock %} {%
+    block content %}
+    
+    <section class="section-bg">
+    
+      <div class="p-4 d-flex justify-content-center">
+        <div class="row">
+          <form
+            class="form-inline my-2 my-lg-0"
+            id="form"
+            method="POST"
+            onsubmit="showSpinner()"
+          >
+            <input
+              class="form-control mr-sm-2"
+              name="link"
+              type="search"
+              placeholder="{{placeholder}}"
+              aria-label="Link"
+            />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Start Analyzer
+            </button>
+          </form>
+    
+          <div
+            id="spinner"
+            class="spinner-border text-success p-1 m-4"
+            style="display: none"
+          ></div>
+          <div id="loading-text" style="display: none">
+            <h1 class="text-black">This can take few minutes</h1>
+            <h5 class="text-black">Do not refresh or resubmit the form</h5>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="team" class="team section-bg">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Steps</h2>
+          <p class="text-black">
+            Follow the steps to perform sentiment analysis on an youtube video comments.
+          </p>
+        </div>
+    
+        <div class="row">
+          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="300">
+            <div class="member d-flex align-items-start">
+              <div class="">
+                <img
+                  src="{{ url_for('static', filename='assets/select-product.png') }}"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="member-info">
+                <h4>Step 1</h4>
+                <span>Find the video</span>
+                <p>open youtube and search for the video</p>
+                
+              </div>
+            </div>
+          </div>
+    
+          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="300">
+            <div class="member d-flex align-items-start">
+              <div class="">
+                <img
+                  src="{{ url_for('static', filename='assets/select-product.png') }}"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="member-info">
+                <h4>Step 2</h4>
+                <span>Open video</span>
+                <p>Open the video on which you wnat to perform analysis</p>
+                
+              </div>
+            </div>
+          </div>
+    
+          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="300">
+            <div class="member d-flex align-items-start mt-4">
+              <div class="">
+                <img
+                  src="{{ url_for('static', filename='assets/select-product.png') }}"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="member-info">
+                <h4>Step 3</h4>
+                <span>Get Link</span>
+                <p>Copy the link of the video and paster it here</p>
+                
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </section>
+    
+    <script>
+      function showSpinner() {
+        document.getElementById("form").style.display = "none";
+        document.getElementById("loading-text").style.display = "block";
+        document.getElementById("spinner").style.display = "block";
+      }
+    </script>
+    
+    {% endblock %}
+    

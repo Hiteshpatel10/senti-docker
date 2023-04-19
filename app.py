@@ -6,8 +6,7 @@ from utility.youtube.youtube_comments import extract_video_id
 import pandas as pd
 import uuid
 
-
-app = Flask(__name__,template_folder="templates")
+app = Flask(__name__, template_folder="templates")
 app.config['SECRECT_KEY'] = "SentiScope"
 APP_UUID = uuid.uuid4()
 
@@ -40,7 +39,7 @@ def youtube():
     youtubeMain(videoId, APP_UUID)
     return redirect(url_for("youtubeSentiResult", videoId=videoId))
   else:
-    return render_template("form.html", placeholder="Youtube video link")
+    return render_template("form_youtube.html", placeholder="Youtube video link")
   
 @app.route("/youtubeSentiResult")
 def youtubeSentiResult():
@@ -56,7 +55,7 @@ def amazon():
     amazonMain(productUrl,APP_UUID)
     return redirect(url_for("amazonSentiResult"))
   else:
-    return render_template("form.html", placeholder="Amazon product link")
+    return render_template("form_amazon.html", placeholder="Amazon product link")
 
 @app.route("/amazonSentiResult")
 def amazonSentiResult():

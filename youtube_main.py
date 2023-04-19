@@ -7,7 +7,7 @@ def youtubeMain(videoId, uuid):
     api_service_name = "youtube"
     api_version = "v3"
     api_key = os.environ.get("YOUTUBE_API_KEY") 
-    yt_service = build(api_service_name, api_version, developerKey=api_key)
+    yt_service = build(api_service_name, api_version, developerKey="AIzaSyAOvxr2XvdsjlqFnc-E0EgKbzlEfXb88_4")
 
     get_comments(yt_service, videoId, uuid)
     senti(uuid)
