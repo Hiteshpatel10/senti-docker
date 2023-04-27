@@ -19,9 +19,9 @@ def predict_sentiment(model, vectorizer, text):
 def senti(uuid_str):
     df = pd.read_csv(f'./data/{uuid_str}.csv', parse_dates=['date'])
     df.dropna(subset=['comment'], inplace=True)
-    filename = "./model/youtube/yt-logistic.joblib"
+    filename = "./model/youtube/svm_model.joblib"
     model = joblib.load(filename)
-    vectorizer = joblib.load("./model/youtube/yt-vector-logistic.joblib")
+    vectorizer = joblib.load("./model/youtube/vectorizer.joblib")
 
     df['sentiment'] = df['comment'].apply(lambda x: predict_sentiment(model, vectorizer, x))
 
