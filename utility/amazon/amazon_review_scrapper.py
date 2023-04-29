@@ -4,13 +4,6 @@ from dateutil import parser as dateparser
 from utility.amazon.get_proxy import getRandomProxy
 from selenium import webdriver
 
-# driver_path = '/home/mhakaal10/Downloads/chromedriver_linux64 (1)/chromedriver'
-# browser = webdriver.Chrome(executable_path=driver_path)
-# options = webdriver.ChromeOptions()
-# options.add_argument('--disable-blink-features=AutomationControlled')
-# options.add_argument('--headless')
-
-
 
 # Create an Extractor by reading from the YAML file
 e = Extractor.from_yaml_file('utility/amazon/selectors.yml')
@@ -38,6 +31,7 @@ def scrape(url):
         "https": "http://wyrpqchj-rotate:4xfau0yx5zy5@p.webshare.io:80/"
         }
     ).text
+    
     prox = {
             "status": "OK",
             "reason": "",
@@ -52,8 +46,7 @@ def scrape(url):
             }
         }
     
-    print(f'proxies {proxy}')
-    # solve_captcha(url)
+   
     # Download the page using requests
     print("Downloading %s"%url)
     r = requests.get(url, headers=headers, proxies=prox)
