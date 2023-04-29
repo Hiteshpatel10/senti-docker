@@ -111,6 +111,3 @@ def senti(uuid_str):
     # fig.write_image('./static/youtube/time_series.png')
     fig.write_html(f'./static/youtube/time_series_{uuid_str}.html')
 
-
-if __name__ == "__main__":
-    senti('abc')

@@ -37,11 +37,11 @@ def scrape(url):
             "reason": "",
             "data": {
                 "carrier": "",
-                "city": "London",
-                "country_code": "UR",
-                "country_name": "America",
+                "city": "Udaipur",
+                "country_code": "IN",
+                "country_name": "INDIA",
                 "ip": proxy,
-                "isp": "FORTHnet",
+                "isp": "AIRTEL",
                 "region": "Thesaly"
             }
         }
