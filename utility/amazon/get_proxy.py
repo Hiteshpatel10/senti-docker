@@ -3,10 +3,8 @@ import requests
 
 def getRandomProxy():
     proxies = [
-        "http://raespmdu-rotate:z64qjwq7ta18@p.webshare.io:80/",
-        "https://raespmdu-rotate:z64qjwq7ta18@p.webshare.io:80/",
-        "http://hqpvfzee-rotate:z9fh8f0dxkzi@p.webshare.io:80/",
-        "https://hqpvfzee-rotate:z9fh8f0dxkzi@p.webshare.io:80/"
+        "http://wyrpqchj-rotate:4xfau0yx5zy5@p.webshare.io:80/",
+        "http://wyrpqchj-rotate:4xfau0yx5zy5@p.webshare.io:80/"
     ]
 
     proxy = random.choice(proxies)
@@ -34,3 +32,14 @@ def getRandomProxy():
             "reason": str(e),
             "data": {}
         }
+
+
+a = requests.get(
+    "https://ipv4.webshare.io/",
+    proxies={
+        "http": "http://wyrpqchj-rotate:4xfau0yx5zy5@p.webshare.io:80/",
+        "https": "http://wyrpqchj-rotate:4xfau0yx5zy5@p.webshare.io:80/"
+    }
+).text
+
+print(a)

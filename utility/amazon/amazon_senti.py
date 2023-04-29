@@ -14,6 +14,16 @@ from wordcloud import WordCloud
 
 # model save
 import joblib
+import emoji
+import re
+from collections import Counter
+
+emoji_pattern = emoji.emojize(r"[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF\U0001F680-\U0001F6FF\U0001F1E0-\U0001F1FF]+")
+
+
+def extract_emojis(comment):
+    return re.findall(emoji_pattern, comment)
+
 
 def predict_sentiment(model, vectorizer, text):
    
@@ -41,6 +51,11 @@ def senti(uuid):
     positive = df[df['sentiment'] == 1]
     negative = df[df['sentiment'] == -1]
     neutral = df[df['sentiment'] == 0]
+
+    positive.to_csv(f'./data/{uuid}_positive.csv', index=False)
+    negative.to_csv(f'./data/{uuid}_negative.csv', index=False)
+    neutral.to_csv(f'./data/{uuid}_neutral.csv', index=False)
+
 
     # Review no histogram
     fig = px.histogram(df, x="rating")
@@ -96,6 +111,19 @@ def senti(uuid):
 
     # Group the reviews by date and count the number of reviews on each day
     reviews_per_day = df.groupby(df['date'].dt.date)['content'].count()
+
+    #Emoji Count
+
+    df['emojis'] = df['content'].apply(extract_emojis)
+    emoji_counts = Counter(emoji for emojis in df['emojis'] for emoji in emojis)
+    fig = go.Figure(go.Bar(x=list(emoji_counts.keys()), y=list(emoji_counts.values())))
+    fig.update_layout(
+        xaxis_tickangle=-90,
+        xaxis_title="Emoji",
+        yaxis_title="Frequency",
+        title="Emoji Histogram"
+    )
+    fig.write_html(f'./static/amazon/emoji_histogram_{uuid}.html')
 
 
 

@@ -8,6 +8,16 @@ from nltk.corpus import stopwords
 STOPWORDS = set(stopwords.words('english'))
 from wordcloud import WordCloud
 import joblib
+import emoji
+import re
+from collections import Counter
+
+emoji_pattern = emoji.emojize(r"[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF\U0001F680-\U0001F6FF\U0001F1E0-\U0001F1FF]+")
+
+
+def extract_emojis(comment):
+    return re.findall(emoji_pattern, comment)
+
 
 def predict_sentiment(model, vectorizer, text):
     features = vectorizer.transform([text])
@@ -19,7 +29,7 @@ def predict_sentiment(model, vectorizer, text):
 def senti(uuid_str):
     df = pd.read_csv(f'./data/{uuid_str}.csv', parse_dates=['date'])
     df.dropna(subset=['comment'], inplace=True)
-    filename = "./model/youtube/svm_model.joblib"
+    filename = "./model/youtube/lr_model.joblib"
     model = joblib.load(filename)
     vectorizer = joblib.load("./model/youtube/vectorizer.joblib")
 
@@ -28,6 +38,11 @@ def senti(uuid_str):
     positive = df[df['sentiment'] == 1]
     negative = df[df['sentiment'] == -1]
     neutral = df[df['sentiment'] == 0]
+
+    positive.to_csv(f'./data/{uuid_str}_positive.csv', index=False)
+    negative.to_csv(f'./data/{uuid_str}_negative.csv', index=False)
+    neutral.to_csv(f'./data/{uuid_str}_neutral.csv', index=False)
+
 
     counts = {'Negative': len(negative), 'Neutral': len(neutral), 'Positive': len(positive),}
     fig = px.bar(x=list(counts.keys()), y=list(counts.values()), color=list(counts.keys()))
@@ -66,21 +81,36 @@ def senti(uuid_str):
 
     reviews_per_day = df.groupby(df['date'].dt.date)['comment'].count()
 
+    #Emoji Count
+
+    df['emojis'] = df['comment'].apply(extract_emojis)
+    emoji_counts = Counter(emoji for emojis in df['emojis'] for emoji in emojis)
+    fig = go.Figure(go.Bar(x=list(emoji_counts.keys()), y=list(emoji_counts.values())))
+    fig.update_layout(
+        xaxis_tickangle=-90,
+        xaxis_title="Emoji",
+        yaxis_title="Frequency",
+        title="Emoji Histogram"
+    )
+    fig.write_html(f'./static/youtube/emoji_histogram_{uuid_str}.html')
+
 
     # Create the time series plot for each sentiment
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=pos_reviews_per_day.index, y=pos_reviews_per_day.values, name='Positive'))
     fig.add_trace(go.Scatter(x=neg_reviews_per_day.index, y=neg_reviews_per_day.values, name='Negative'))
     fig.add_trace(go.Scatter(x=neu_reviews_per_day.index, y=neu_reviews_per_day.values, name='Neutral'))
-    fig.update_layout(title_text='Amazon Reviews Time Series Plot (Sentiment)', xaxis_title='Date', yaxis_title='Number of Comments')
+    fig.update_layout(title_text='Youtube Comment Time Series Plot (Sentiment)', xaxis_title='Date', yaxis_title='Number of Comments')
     # fig.write_image('./static/youtube/time_series_sentiment.png')
     fig.write_html(f'./static/youtube/time_series_sentiment_{uuid_str}.html')
 
     # Create the time series plot for reviews
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=reviews_per_day.index, y=reviews_per_day.values, name='Reviews'))
-    fig.update_layout(title_text='Amazon Reviews Time Series Plot', xaxis_title='Date', yaxis_title='Number of Reviews')
+    fig.update_layout(title_text='Youtube Comment Time Series Plot (Comment)', xaxis_title='Date', yaxis_title='Number of Comments')
     # fig.write_image('./static/youtube/time_series.png')
     fig.write_html(f'./static/youtube/time_series_{uuid_str}.html')
 
 
+if __name__ == "__main__":
+    senti('abc')

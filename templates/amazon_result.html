@@ -6,16 +6,39 @@
     <div class="container-fluid mt-4" data-aos="fade-up" data-aos-delay="100">
         <h1 class="text-center mb-4">Sentiment Analysis</h1>
 
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Reviews</h5>
-                    <div class="text-center">
-                        <a href="{{ url_for('show_csv', file_name=uuid+'.csv') }}" class="btn btn-success">View CSV file</a>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Positive Comments</h5>
+                        <div class="text-center">
+                            <a href="{{ url_for('show_csv', file_name=uuid+'_positive.csv') }}" class="btn btn-success">View CSV file</a>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Negative Comments</h5>
+                        <div class="text-center">
+                            <a href="{{ url_for('show_csv', file_name=uuid+'_negative.csv') }}" class="btn btn-success">View CSV file</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Neutral Comments</h5>
+                        <div class="text-center">
+                            <a href="{{ url_for('show_csv', file_name=uuid+'_neutral.csv') }}" class="btn btn-success">View CSV file</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
 
         <div class="card m-4">
             <div class="card-body">
@@ -59,9 +82,15 @@
                 </div>
                 </div>
             </div>
+         </div>
+
+         <div class="card m-4">
+            <div class="card-body">
+                <h5 class="card-title ">Emoji Histogram</h5>
+                <iframe src="{{ url_for('static', filename='youtube/emoji_histogram_' + uuid + '.html') }}" class="embed-responsive-item" height="1000" width="100%"></iframe>
             </div>
-            
-        
+        </div>
+
         
 
         <div class="card m-4" data-aos="fade-up" data-aos-delay="100">
