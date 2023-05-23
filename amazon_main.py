@@ -31,7 +31,7 @@ def amazonMain(productUrl, uuid):
                 print(f"No reviews found on page {i}")
                 break
         
-        time.sleep(15)
+        time.sleep(10)
 
     output_df = pd.DataFrame.from_dict(reviewList)
     # output_df.to_csv(f'data/{uuid}.csv', index=False, header=["title","content","date","variant","images","verified","author","rating","product","url"])
