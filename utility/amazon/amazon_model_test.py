@@ -52,5 +52,5 @@ accuracy_svm = accuracy_score(df_test['sentiment'], y_pred_svm)
 
 # Print the accuracies for each model
 print("Logistic Regression Accuracy:", accuracy_logistic)
-print("KNN Accuracy:", accuracy_knn)
+print("KNN Accuracy:", accuracy_knn) 
 print("SVM Accuracy:", accuracy_svm)

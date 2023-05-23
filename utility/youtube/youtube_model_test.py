@@ -9,7 +9,7 @@ model = joblib.load('../../model/youtube/yt-logistic.joblib')
 vectorizer = joblib.load('../../model/youtube/yt-vector-logistic.joblib')
 
 # Load the test data
-df_test = pd.read_csv('../../data/yt-train.csv')
+df_test = pd.read_csv('../../data/youtube.csv')
 
 # Preprocess the test data
 sentiments = SentimentIntensityAnalyzer()

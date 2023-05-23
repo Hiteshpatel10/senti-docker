@@ -38,7 +38,7 @@ def predict_sentiment(model, vectorizer, text):
 
 def senti(uuid):
 
-    df = pd.read_csv(f'./data/{uuid}.csv', parse_dates=['date'])
+    df = pd.read_csv(f'./data/amazon-train.csv', parse_dates=['date'])
     df.dropna(subset=['content'], inplace=True)
     filename = "./model/amazon/amazon-logistic.joblib"
     model = joblib.load(filename)

@@ -59,7 +59,7 @@ def amazon():
 
 @app.route("/amazonSentiResult")
 def amazonSentiResult():
-  return render_template("amazon_result.html", uuid = str(APP_UUID))
+  return render_template("amazon_result.html", uuid = str('amazon-train'))
 
 
 if __name__ == "__main__":

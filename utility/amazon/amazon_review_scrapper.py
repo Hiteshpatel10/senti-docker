@@ -24,32 +24,32 @@ def scrape(url):
         'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
     }
 
-    proxy = requests.get(
-    "https://ipv4.webshare.io/",
-    proxies={
-        "http": "http://wyrpqchj-rotate:4xfau0yx5zy5@p.webshare.io:80/",
-        "https": "http://wyrpqchj-rotate:4xfau0yx5zy5@p.webshare.io:80/"
-        }
-    ).text
+    # proxy = requests.get(
+    # "https://ipv4.webshare.io/",
+    # proxies={
+    #     "http": "http://wyrpqchj-rotate:4xfau0yx5zy5@p.webshare.io:80/",
+    #     "https": "http://wyrpqchj-rotate:4xfau0yx5zy5@p.webshare.io:80/"
+    #     }
+    # ).text
     
-    prox = {
-            "status": "OK",
-            "reason": "",
-            "data": {
-                "carrier": "",
-                "city": "Udaipur",
-                "country_code": "IN",
-                "country_name": "INDIA",
-                "ip": proxy,
-                "isp": "AIRTEL",
-                "region": "Thesaly"
-            }
-        }
+    # prox = {
+    #         "status": "OK",
+    #         "reason": "",
+    #         "data": {
+    #             "carrier": "",
+    #             "city": "Udaipur",
+    #             "country_code": "IN",
+    #             "country_name": "INDIA",
+    #             "ip": proxy,
+    #             "isp": "AIRTEL",
+    #             "region": "Thesaly"
+    #         }
+    #     }
     
    
     # Download the page using requests
     print("Downloading %s"%url)
-    r = requests.get(url, headers=headers, proxies=prox)
+    r = requests.get(url, headers=headers)
     # Simple check to check if page was blocked (Usually 503)
     if r.status_code > 500:
         if "To discuss automated access to Amazon data please contact" in r.text:

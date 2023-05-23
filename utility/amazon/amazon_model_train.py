@@ -25,8 +25,11 @@ def clean_text(text):
     return text
 
 def amazonModelTrain():
+
     df = pd.read_csv('../../data/am1-train.csv')
+    
     print(len(df))
+
     sentiments = SentimentIntensityAnalyzer()
     df["positive"] = df['content'].apply(lambda review: sentiments.polarity_scores(str(review))["pos"])
     df["negative"] = df['content'].apply(lambda review: sentiments.polarity_scores(str(review))["neg"])
@@ -96,3 +99,31 @@ def amazonModelTrain():
     
 if __name__ == "__main__":
     amazonModelTrain()
+
+
+
+
+    # Naive Bayes Model
+    nb_model = MultinomialNB()
+    nb_scores = cross_validate(nb_model, x, y, cv=5, return_train_score=True)
+    nb_model.fit(x_train, y_train)
+    nb_pred = nb_model.predict(x_test)
+
+    # Train Logistic Regression Model
+    lr_model = LogisticRegression(max_iter=1000)
+    lr_scores = cross_validate(lr_model, x, y, cv=5, return_train_score=True)
+    lr_model.fit(x_train, y_train)
+    lr_pred = lr_model.predict(x_test)
+
+    # Train KNN Model
+    knn_model = KNeighborsClassifier(n_neighbors=4)
+    knn_scores = cross_validate(knn_model, x, y, cv=5, return_train_score=True)
+    knn_model.fit(x_train, y_train)
+    knn_pred = knn_model.predict(x_test)
+
+    # SVM Model
+    svm_model = SVC(kernel='linear')
+    svm_scores = cross_validate(svm_model, x, y, cv=5, return_train_score=True)
+    svm_model.fit(x_train, y_train)
+    svm_pred = svm_model.predict(x_test)
+
